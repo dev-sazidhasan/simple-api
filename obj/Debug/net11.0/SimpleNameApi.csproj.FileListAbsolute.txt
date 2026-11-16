@@ -44,3 +44,10 @@ D:\Dot net Learn Project\SimpleNameApi\obj\Debug\net11.0\refint\SimpleNameApi.dl
 D:\Dot net Learn Project\SimpleNameApi\obj\Debug\net11.0\SimpleNameApi.pdb
 D:\Dot net Learn Project\SimpleNameApi\obj\Debug\net11.0\SimpleNameApi.genruntimeconfig.cache
 D:\Dot net Learn Project\SimpleNameApi\obj\Debug\net11.0\ref\SimpleNameApi.dll
+D:\Dot net Learn Project\SimpleNameApi\obj\Debug\net11.0\SimpleNameApi.sourcelink.json
+D:\Dot net Learn Project\SimpleNameApi\bin\Debug\net11.0\DnsClient.dll
+D:\Dot net Learn Project\SimpleNameApi\bin\Debug\net11.0\MongoDB.Bson.dll
+D:\Dot net Learn Project\SimpleNameApi\bin\Debug\net11.0\MongoDB.Driver.dll
+D:\Dot net Learn Project\SimpleNameApi\bin\Debug\net11.0\SharpCompress.dll
+D:\Dot net Learn Project\SimpleNameApi\bin\Debug\net11.0\Snappier.dll
+D:\Dot net Learn Project\SimpleNameApi\bin\Debug\net11.0\ZstdSharp.dll

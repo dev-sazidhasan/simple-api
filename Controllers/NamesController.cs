@@ -36,4 +36,54 @@ public class NamesController : ControllerBase
 
         return Ok(names);
     }
+
+    [HttpGet("{id:guid}")]
+    public ActionResult<NameResponse> GetNameById(Guid id)
+    {
+        var name = _nameService.GetNameById(id);
+
+        if (name is null)
+        {
+            return NotFound(new
+            {
+                message = "Name not found."
+            });
+        }
+
+        return Ok(name);
+    }
+
+    [HttpPut("{id:guid}")]
+    public ActionResult<NameResponse> UpdateName(
+        Guid id,
+        [FromBody] UpdateNameRequest request)
+    {
+        var updatedName = _nameService.UpdateName(id, request);
+
+        if (updatedName is null)
+        {
+            return NotFound(new
+            {
+                message = "Name not found."
+            });
+        }
+
+        return Ok(updatedName);
+    }
+
+    [HttpDelete("{id:guid}")]
+    public IActionResult DeleteName(Guid id)
+    {
+        bool deleted = _nameService.DeleteName(id);
+
+        if (!deleted)
+        {
+            return NotFound(new
+            {
+                message = "Name not found."
+            });
+        }
+
+        return NoContent();
+    }
 }
