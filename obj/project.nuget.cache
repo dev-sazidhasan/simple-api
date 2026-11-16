@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "fNSHg+JAjxc=",
+  "success": true,
+  "projectFilePath": "D:\\Dot net Learn Project\\SimpleNameApi\\SimpleNameApi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\USER\\.nuget\\packages\\microsoft.aspnetcore.openapi\\11.0.0\\microsoft.aspnetcore.openapi.11.0.0.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\microsoft.openapi\\3.11.0\\microsoft.openapi.3.11.0.nupkg.sha512"
+  ],
+  "logs": []
+}
