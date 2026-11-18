@@ -51,3 +51,12 @@ D:\Dot net Learn Project\SimpleNameApi\bin\Debug\net11.0\MongoDB.Driver.dll
 D:\Dot net Learn Project\SimpleNameApi\bin\Debug\net11.0\SharpCompress.dll
 D:\Dot net Learn Project\SimpleNameApi\bin\Debug\net11.0\Snappier.dll
 D:\Dot net Learn Project\SimpleNameApi\bin\Debug\net11.0\ZstdSharp.dll
+D:\Dot net Learn Project\SimpleNameApi\bin\Debug\net11.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Dot net Learn Project\SimpleNameApi\bin\Debug\net11.0\Microsoft.Bcl.Cryptography.dll
+D:\Dot net Learn Project\SimpleNameApi\bin\Debug\net11.0\Microsoft.IdentityModel.Abstractions.dll
+D:\Dot net Learn Project\SimpleNameApi\bin\Debug\net11.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Dot net Learn Project\SimpleNameApi\bin\Debug\net11.0\Microsoft.IdentityModel.Logging.dll
+D:\Dot net Learn Project\SimpleNameApi\bin\Debug\net11.0\Microsoft.IdentityModel.Protocols.dll
+D:\Dot net Learn Project\SimpleNameApi\bin\Debug\net11.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Dot net Learn Project\SimpleNameApi\bin\Debug\net11.0\Microsoft.IdentityModel.Tokens.dll
+D:\Dot net Learn Project\SimpleNameApi\bin\Debug\net11.0\System.IdentityModel.Tokens.Jwt.dll

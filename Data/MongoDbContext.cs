@@ -1,8 +1,4 @@
-
 using Microsoft.Extensions.Options;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using SimpleNameApi.Configurations;
 using SimpleNameApi.Models;
@@ -15,20 +11,22 @@ public class MongoDbContext
 
     public MongoDbContext(IOptions<MongoDBSettings> settings)
     {
-        var mongoSettings = settings.Value;
-
         var mongoClient = new MongoClient(
-            mongoSettings.ConnectionString
+            settings.Value.ConnectionString
         );
 
         _database = mongoClient.GetDatabase(
-            mongoSettings.DatabaseName
+            settings.Value.DatabaseName
         );
 
         Names = _database.GetCollection<Name>(
-            mongoSettings.CollectionName
+            settings.Value.CollectionName
         );
+
+        Users = _database.GetCollection<User>("Users");
     }
 
     public IMongoCollection<Name> Names { get; }
+
+    public IMongoCollection<User> Users { get; }
 }

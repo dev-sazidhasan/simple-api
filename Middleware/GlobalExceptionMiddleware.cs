@@ -1,4 +1,3 @@
-
 using System.Net;
 using System.Text.Json;
 
@@ -30,15 +29,42 @@ public class GlobalExceptionMiddleware
                 "An unexpected error occurred."
             );
 
-            context.Response.StatusCode =
-                (int)HttpStatusCode.InternalServerError;
+            if (context.Response.HasStarted)
+            {
+                throw;
+            }
 
+            var statusCode = exception switch
+            {
+                UnauthorizedAccessException =>
+                    (int)HttpStatusCode.Unauthorized,
+
+                InvalidOperationException =>
+                    (int)HttpStatusCode.Conflict,
+
+                ArgumentException =>
+                    (int)HttpStatusCode.BadRequest,
+
+                _ =>
+                    (int)HttpStatusCode.InternalServerError
+            };
+
+            var message = statusCode switch
+            {
+                401 => exception.Message,
+                409 => exception.Message,
+                400 => exception.Message,
+                _ => "An unexpected error occurred."
+            };
+
+            context.Response.Clear();
+            context.Response.StatusCode = statusCode;
             context.Response.ContentType = "application/json";
 
             var response = new
             {
-                statusCode = context.Response.StatusCode,
-                message = "An unexpected error occurred."
+                statusCode,
+                message
             };
 
             var jsonResponse = JsonSerializer.Serialize(response);
