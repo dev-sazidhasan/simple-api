@@ -51,11 +51,14 @@ builder.Services.AddSingleton<MongoDbContext>();
 builder.Services.AddSingleton<INameRepository, MongoNameRepository>();
 builder.Services.AddSingleton<IAuthRepository, MongoAuthRepository>();
 builder.Services.AddScoped<ITokenService, JwtTokenService>();
+builder.Services.AddSingleton<IProductRepository, MongoProductRepository>();
+builder.Services.AddSingleton<IOrderRepository, MongoOrderRepository>();
 
 
 builder.Services.AddScoped<INameService, NameService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 builder.Services.AddOpenApi();
 
