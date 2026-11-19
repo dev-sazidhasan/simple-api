@@ -18,6 +18,9 @@ public class User
     [BsonElement("passwordHash")]
     public string PasswordHash { get; set; } = string.Empty;
 
+    [BsonElement("role")]
+    public string Role { get; set; } = "Customer";
+
     [BsonElement("createdAtUtc")]
     public DateTime CreatedAtUtc { get; set; }
 }

@@ -8,18 +8,18 @@ namespace SimpleNameApi.Services;
 
 public class AuthService : IAuthService
 {
-private readonly IAuthRepository _authRepository;
-private readonly ITokenService _tokenService;
-private readonly PasswordHasher<User> _passwordHasher;
+    private readonly IAuthRepository _authRepository;
+    private readonly ITokenService _tokenService;
+    private readonly PasswordHasher<User> _passwordHasher;
 
-public AuthService(
-    IAuthRepository authRepository,
-    ITokenService tokenService)
-{
-    _authRepository = authRepository;
-    _tokenService = tokenService;
-    _passwordHasher = new PasswordHasher<User>();
-}
+    public AuthService(
+        IAuthRepository authRepository,
+        ITokenService tokenService)
+    {
+        _authRepository = authRepository;
+        _tokenService = tokenService;
+        _passwordHasher = new PasswordHasher<User>();
+    }
 
     public AuthResponse Register(RegisterRequest request)
     {
@@ -39,6 +39,7 @@ public AuthService(
             Id = Guid.NewGuid(),
             FullName = request.FullName.Trim(),
             Email = email,
+            Role = "Customer",
             CreatedAtUtc = DateTime.UtcNow
         };
 
@@ -58,43 +59,56 @@ public AuthService(
         };
     }
 
-public AuthResponse Login(LoginRequest request)
-{
-    var email = request.Email.Trim().ToLowerInvariant();
-
-    var user = _authRepository.GetByEmail(email);
-
-    if (user is null)
+    public AuthResponse Login(LoginRequest request)
     {
-        throw new UnauthorizedAccessException(
-            "Invalid email or password."
+        var email = request.Email.Trim().ToLowerInvariant();
+
+        var user = _authRepository.GetByEmail(email);
+
+        if (user is null)
+        {
+            throw new UnauthorizedAccessException(
+                "Invalid email or password."
+            );
+        }
+
+        var verificationResult = _passwordHasher.VerifyHashedPassword(
+            user,
+            user.PasswordHash,
+            request.Password
         );
+
+        if (verificationResult == PasswordVerificationResult.Failed)
+        {
+            throw new UnauthorizedAccessException(
+                "Invalid email or password."
+            );
+        }
+
+        if (string.IsNullOrWhiteSpace(user.Role))
+        {
+            user.Role = "Customer";
+        }
+
+        if (user.Role != "Customer" && user.Role != "Admin")
+        {
+            throw new UnauthorizedAccessException(
+                "Invalid user role."
+            );
+        }
+
+        var accessToken = _tokenService.GenerateToken(user);
+
+        return new AuthResponse
+        {
+            UserId = user.Id,
+            FullName = user.FullName,
+            Email = user.Email,
+            Role = user.Role,
+            AccessToken = accessToken,
+            TokenType = "Bearer",
+            ExpiresAtUtc = DateTime.UtcNow.AddMinutes(60),
+            Message = "Login successful."
+        };
     }
-
-    var verificationResult = _passwordHasher.VerifyHashedPassword(
-        user,
-        user.PasswordHash,
-        request.Password
-    );
-
-    if (verificationResult == PasswordVerificationResult.Failed)
-    {
-        throw new UnauthorizedAccessException(
-            "Invalid email or password."
-        );
-    }
-
-    var accessToken = _tokenService.GenerateToken(user);
-
-    return new AuthResponse
-    {
-        UserId = user.Id,
-        FullName = user.FullName,
-        Email = user.Email,
-        AccessToken = accessToken,
-        TokenType = "Bearer",
-        ExpiresAtUtc = DateTime.UtcNow.AddMinutes(60),
-        Message = "Login successful."
-    };
-}
 }

@@ -8,7 +8,7 @@ namespace SimpleNameApi.Controllers;
 
 [ApiController]
 [Route("api/orders")]
-[Authorize]
+[Authorize(Roles = "Customer")]
 public class OrdersController : ControllerBase
 {
     private readonly IOrderService _orderService;

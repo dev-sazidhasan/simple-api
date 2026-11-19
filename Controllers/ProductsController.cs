@@ -19,6 +19,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public ActionResult<ProductResponse> Create(
         [FromBody] CreateProductRequest request)
     {
@@ -55,6 +56,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
+    [Authorize(Roles = "Admin")]
     public ActionResult<ProductResponse> Update(
         Guid id,
         [FromBody] UpdateProductRequest request)
@@ -73,6 +75,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpDelete("{id:guid}")]
+    [Authorize(Roles = "Admin")]
     public IActionResult Delete(Guid id)
     {
         var deleted = _productService.Delete(id);

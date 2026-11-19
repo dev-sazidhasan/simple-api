@@ -41,4 +41,11 @@ public class MongoOrderRepository : IOrderRepository
             order
         );
     }
+    public List<Order> GetAll()
+{
+    return _context.Orders
+        .Find(_ => true)
+        .SortByDescending(order => order.CreatedAtUtc)
+        .ToList();
+}
 }

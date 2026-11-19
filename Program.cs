@@ -8,9 +8,14 @@ using SimpleNameApi.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.Extensions.Options;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.Configure<AdminSettings>(
+    builder.Configuration.GetSection("AdminSettings")
+);
 
 
 builder.Services.AddControllers();
@@ -53,6 +58,7 @@ builder.Services.AddSingleton<IAuthRepository, MongoAuthRepository>();
 builder.Services.AddScoped<ITokenService, JwtTokenService>();
 builder.Services.AddSingleton<IProductRepository, MongoProductRepository>();
 builder.Services.AddSingleton<IOrderRepository, MongoOrderRepository>();
+builder.Services.AddScoped<AdminInitializer>();
 
 
 builder.Services.AddScoped<INameService, NameService>();
@@ -64,6 +70,14 @@ builder.Services.AddOpenApi();
 
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var adminInitializer = scope.ServiceProvider
+        .GetRequiredService<AdminInitializer>();
+
+    adminInitializer.Initialize();
+}
 
 
 app.UseMiddleware<GlobalExceptionMiddleware>();
